@@ -28,9 +28,30 @@ const programs = [
 import type { RequestHandler } from "express";
 
 const browse: RequestHandler = (req, res) => {
-  res.json(programs);
+  //*****************************************************
+  if (req.query.q != null) {
+    const filteredPrograms = programs.filter((program) =>
+      program.synopsis.includes(req.query.q as string),
+    );
+
+    res.json(filteredPrograms);
+  } else {
+    res.json(programs);
+  }
+};
+//Ajoute une nouvelle action read *****************************************************
+
+const read: RequestHandler = (req, res) => {
+  const parsedId = Number.parseInt(req.params.id);
+  const program = programs.find((p) => p.id === parsedId);
+  //Si program est défini (!= null), le code renvoie les données de la série demandée formatées en JSON. Sinon, c'est un statut 404 (Not Found) qui est renvoyé :
+  if (program != null) {
+    res.json(program);
+  } else {
+    res.sendStatus(404);
+  }
 };
 
 // Export it to import it somewhere else
 
-export default { browse };
+export default { browse, read };
