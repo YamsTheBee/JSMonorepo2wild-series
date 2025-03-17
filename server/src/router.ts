@@ -21,7 +21,7 @@ router.post("/api/items", itemActions.add);
 import programActions from "./modules/program/programActions";
 
 router.get("/api/programs", programActions.browse);
-router.get("/api/programs/:id", programActions.read);
+// router.get("/api/programs/:id", programActions.read);
 
 /* ************************************************************************* */
 

@@ -1,6 +1,8 @@
 // server/src/modules/category/categoryActions.ts
 
 import type { RequestHandler } from "express";
+import categoryRepository from "./categotyRepository";
+
 // Données en dur pour les catégories
 const categories = [
   {
@@ -32,6 +34,12 @@ const categories = [
     name: "Animation",
   },
 ];
+
+const browse: RequestHandler = async (req, res) => {
+  const categoriesFromDB = await categoryRepository.readAll();
+
+  res.json(categoriesFromDB);
+};
 
 // Action pour obtenir toutes les catégories
 export const getAllCategories = () => {
