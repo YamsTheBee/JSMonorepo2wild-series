@@ -11,22 +11,6 @@ create table item (
   foreign key(user_id) references user(id)
 );
 
-  create table category (
-  id int unsigned primary key auto_increment not null,
-  name varchar(255) not null
-);
-
-CREATE TABLE program (
-  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  synopsis TEXT NOT NULL,
-  poster VARCHAR(255),
-  country VARCHAR(100),
-  year YEAR,
-  category_id INT UNSIGNED,
-  FOREIGN KEY (category_id) REFERENCES category(id)
-);
-
 insert into user(id, email, password)
 values
   (1, "jdoe@mail.com", "123456");
@@ -35,6 +19,22 @@ insert into item(id, title, user_id)
 values
   (1, "Stuff", 1),
   (2, "Doodads", 1);
+
+create table category (
+  id int unsigned primary key auto_increment not null,
+  name varchar(255) not null unique
+);
+
+create table program (
+  id int unsigned primary key auto_increment not null,
+  title varchar(255) not null,
+  synopsis text not null,
+  poster varchar(255) not null,
+  country varchar(100) not null,
+  year int not null,
+  category_id int unsigned not null,
+  foreign key(category_id) references category(id)
+);
 
 insert into category(id, name)
 values
